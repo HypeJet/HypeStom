@@ -1,4 +1,4 @@
-# <h3 align="center">📒 CityStorm</h3>
+# <h3 align="center">📒 CityStom</h3>
   <p align="center">
     <a href="https://github.com/CityWideMC/CityStom/issues">Report Bug</a>
     •
