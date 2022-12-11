@@ -1,9 +1,7 @@
 package me.heroostech.citystom;
 
-import me.heroostech.citystom.listener.Listener;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
-import net.minestom.server.event.Event;
 import net.minestom.server.instance.block.BlockHandler;
 import net.minestom.server.timer.ExecutionType;
 import net.minestom.server.timer.TaskSchedule;
@@ -13,10 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Duration;
 
 public abstract class Extension extends net.minestom.server.extensions.Extension {
-    public final void registerEvent(@NotNull Listener<? extends Event> listener) {
-        getEventNode().addChild(listener.events());
-    }
-
     public final void registerCommand(@NotNull Command command) {
         MinecraftServer.getCommandManager().register(command);
     }
