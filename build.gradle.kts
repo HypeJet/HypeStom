@@ -41,3 +41,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     mergeServiceFiles()
     archiveClassifier.set("")
 }
+
+tasks.withType<JavaCompile> {
+    options.release.set(17)
+}

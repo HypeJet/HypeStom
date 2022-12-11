@@ -14,6 +14,12 @@ public abstract class MinestomRunnable implements Runnable {
     private TaskSchedule repeat = TaskSchedule.stop();
     private ExecutionType executionType = ExecutionType.SYNC;
 
+    public MinestomRunnable() {}
+    public MinestomRunnable(TaskSchedule delay, TaskSchedule repeat) {
+        this.delay = delay;
+        this.repeat = repeat;
+    }
+
     public void delay(@NotNull Duration delay) {
         if(delay == Duration.ZERO) return;
         this.delay = TaskSchedule.duration(delay);
