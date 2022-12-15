@@ -31,7 +31,7 @@ publishing {
                 if (shadowJar == null) from(components["java"])
                 else artifact(shadowJar)
             }
-            groupId = "me.heroostech.citystom"
+            groupId = "xyz.citywide.citystom"
             artifactId = "CityStom"
             version = "v1.0.0"
         }
