@@ -1,4 +1,4 @@
-package me.heroostech.citystom.runnable;
+package xyz.citywide.citystom.runnable;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.timer.ExecutionType;

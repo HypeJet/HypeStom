@@ -17,25 +17,11 @@ dependencies {
     compileOnly(libs.minestom)
     compileOnly(libs.lombok)
     implementation(libs.minimessage)
+    implementation(libs.toml)
     annotationProcessor(libs.lombok)
 }
 
 project.tasks.findByName("jar")?.enabled = false
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            afterEvaluate {
-                val shadowJar = tasks.findByName("shadowJar")
-                if (shadowJar == null) from(components["java"])
-                else artifact(shadowJar)
-            }
-            groupId = "me.heroostech.citystom"
-            artifactId = "CityStom"
-            version = "v1.0.0"
-        }
-    }
-}
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     mergeServiceFiles()

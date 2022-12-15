@@ -1,4 +1,4 @@
-package me.heroostech.citystom.location;
+package xyz.citywide.citystom.location;
 
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.instance.Instance;
