@@ -2,6 +2,7 @@ package xyz.citywide.citystom.lang;
 
 import lombok.SneakyThrows;
 import net.minestom.server.entity.Player;
+import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.player.PlayerSettingsChangeEvent;
 import net.minestom.server.extensions.Extension;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +15,7 @@ public sealed interface LangApi permits LangApiImpl {
     static LangApi create(@NotNull Extension extension, @NotNull Connection sqlConnection, @NotNull String table) {
         final LangApi lang = new LangApiImpl(extension, sqlConnection.createStatement(), table);
         extension.getEventNode().addListener(PlayerSettingsChangeEvent.class, event -> PlayerSettingsListener.listener(event, lang));
+        extension.getEventNode().addListener(PlayerDisconnectEvent.class, PlayerDisconnectListener::listener);
         return lang;
     }
 
