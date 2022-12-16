@@ -79,6 +79,6 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
     @SneakyThrows
     @Override
     public void createTable() {
-        statement.execute("CREATE TABLE IF NOT EXISTS " + table + " (uuid VARCHAR, locale VARCHAR)");
+        statement.execute("CREATE TABLE IF NOT EXISTS " + table + " (uuid VARCHAR(100), locale VARCHAR(100))");
     }
 }
