@@ -51,7 +51,7 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
         ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE EXISTS (SELECT uuid FROM " + table + " WHERE uuid = \"" + player.getUuid() + "\")");
         exists = data.next();
         if(exists)
-            statement.executeUpdate("UPDATE " + table + " SET \"locale\" = \"" + locale.toLanguageTag() + "\" WHERE \"uuid\" = \"" + player.getUuid() + "\"");
+            statement.executeUpdate("UPDATE " + table + " SET locale = '" + locale.toLanguageTag() + "' WHERE uuid = '" + player.getUuid() + "'");
         else
             statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", " + locale.toLanguageTag() + ")");
         return exists;
@@ -64,7 +64,7 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
         ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE EXISTS (SELECT uuid FROM " + table + " WHERE uuid = \"" + player.getUuid() + "\")");
         exists = data.next();
         if(exists) {
-            statement.executeUpdate("UPDATE " + table + " SET \"locale\" = \"CLIENT\" WHERE \"uuid\" = \"" + player.getUuid() + "\"");
+            statement.executeUpdate("UPDATE " + table + " SET locale = 'CLIENT' WHERE uuid = '" + player.getUuid() + "'");
         } else
             statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", \"CLIENT\")");
         return exists;
