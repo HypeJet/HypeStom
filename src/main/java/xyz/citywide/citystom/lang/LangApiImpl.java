@@ -34,12 +34,14 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
     @Override
     public Locale getLocale(@NotNull Player player) {
         ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE uuid = " + "\"" + player.getUuid() + "\"");
-        data.next();
-        final String locale = data.getString("locale");
-        if(locale.equals("CLIENT"))
-            return player.getLocale();
-        else
-            return Locale.forLanguageTag(locale);
+        if(data.next()) {
+            final String locale = data.getString("locale");
+            if (locale.equals("CLIENT"))
+                return player.getLocale();
+            else
+                return Locale.forLanguageTag(locale);
+        }
+        return null;
     }
 
     @SneakyThrows
@@ -72,8 +74,10 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
     @Override
     public boolean isClientLocale(@NotNull Player player) {
         ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE uuid = " + "\"" + player.getUuid() + "\"");
-        data.next();
-        return data.getString("locale").equals("CLIENT");
+        if(data.next())
+            return data.getString("locale").equals("CLIENT");
+        else
+            return false;
     }
 
     @SneakyThrows
