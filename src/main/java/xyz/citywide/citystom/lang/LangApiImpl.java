@@ -66,7 +66,7 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
         if(exists)
             statement.execute("UPDATE " + table + " SET locale = CLIENT WHERE uuid = \"" + player.getUuid() + "\"");
         else
-            statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", CLIENT)");
+            statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", \"CLIENT\")");
         return exists;
     }
 
