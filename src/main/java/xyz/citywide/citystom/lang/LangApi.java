@@ -13,9 +13,11 @@ import java.util.Locale;
 public sealed interface LangApi permits LangApiImpl {
     @SneakyThrows
     static LangApi create(@NotNull Extension extension, @NotNull Connection sqlConnection, @NotNull String table) {
-        final LangApi lang = new LangApiImpl(extension, sqlConnection.createStatement(), table);
-        extension.getEventNode().addListener(PlayerSettingsChangeEvent.class, event -> PlayerSettingsListener.listener(event, lang));
-        extension.getEventNode().addListener(PlayerDisconnectEvent.class, PlayerDisconnectListener::listener);
+        final LangApiImpl lang = new LangApiImpl(extension, sqlConnection.createStatement(), table);
+        PlayerSettingsListener settingsListener = new PlayerSettingsListener();
+        PlayerDisconnectListener disconnectListener = new PlayerDisconnectListener();
+        extension.getEventNode().addListener(PlayerSettingsChangeEvent.class, event -> settingsListener.listener(event, lang));
+        extension.getEventNode().addListener(PlayerDisconnectEvent.class, event -> disconnectListener.listener(event, settingsListener));
         return lang;
     }
 

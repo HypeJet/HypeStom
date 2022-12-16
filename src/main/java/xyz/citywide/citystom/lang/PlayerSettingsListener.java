@@ -9,9 +9,9 @@ import java.util.Locale;
 
 final class PlayerSettingsListener {
 
-    static final HashMap<Player, Locale> locales = new HashMap<>();
+    final HashMap<Player, Locale> locales = new HashMap<>();
 
-    public static void listener(PlayerSettingsChangeEvent event, LangApi api) {
+    public void listener(PlayerSettingsChangeEvent event, LangApiImpl api) {
         if (!locales.containsKey(event.getPlayer())) {
             locales.put(event.getPlayer(), event.getPlayer().getLocale());
             MinecraftServer.getGlobalEventHandler().call(new PlayerLanguageChangeEvent(event.getPlayer(), event.getPlayer().getLocale(), true));
