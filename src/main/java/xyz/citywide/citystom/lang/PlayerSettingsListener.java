@@ -16,7 +16,8 @@ final class PlayerSettingsListener {
             locales.put(event.getPlayer(), event.getPlayer().getLocale());
             MinecraftServer.getGlobalEventHandler().call(new PlayerLanguageChangeEvent(event.getPlayer(), event.getPlayer().getLocale(), true));
         }
-        if(!locales.get(event.getPlayer()).equals(locales.get(event.getPlayer()))) {
+        if(!locales.get(event.getPlayer()).equals(event.getPlayer().getLocale())) {
+            locales.put(event.getPlayer(), event.getPlayer().getLocale());
             if (api.isClientLocale(event.getPlayer()))
                 MinecraftServer.getGlobalEventHandler().call(new PlayerLanguageChangeEvent(event.getPlayer(), event.getPlayer().getLocale(), true));
         }
