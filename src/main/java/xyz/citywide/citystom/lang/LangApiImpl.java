@@ -70,6 +70,14 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
 
     @SneakyThrows
     @Override
+    public boolean isClientLocale(@NotNull Player player) {
+        ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE uuid = " + "\"" + player.getUuid() + "\"");
+        data.next();
+        return data.getString("locale").equals("CLIENT");
+    }
+
+    @SneakyThrows
+    @Override
     public void createTable() {
         statement.execute("CREATE TABLE IF NOT EXISTS " + table + " (uuid VARCHAR, locale VARCHAR)");
     }
