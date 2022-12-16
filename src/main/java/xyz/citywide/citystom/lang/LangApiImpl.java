@@ -7,6 +7,7 @@ import net.minestom.server.extensions.Extension;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Locale;
@@ -50,9 +51,13 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
         boolean exists;
         ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE EXISTS (SELECT uuid FROM " + table + " WHERE uuid = \"" + player.getUuid() + "\")");
         exists = data.next();
-        if(exists)
-            statement.execute("UPDATE " + table + " SET locale = " + locale.toLanguageTag() + " WHERE uuid = \"" + player.getUuid() + "\"");
-        else
+        if(exists) {
+            PreparedStatement ps = statement.getConnection().prepareStatement("UPDATE " + table + " SET locale=? WHERE uuid=?");
+            ps.setString(1, locale.toLanguageTag());
+            ps.setString(2, player.getUuid().toString());
+            ps.executeUpdate();
+            ps.close();
+        } else
             statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", " + locale.toLanguageTag() + ")");
         return exists;
     }
@@ -63,9 +68,13 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
         boolean exists;
         ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE EXISTS (SELECT uuid FROM " + table + " WHERE uuid = \"" + player.getUuid() + "\")");
         exists = data.next();
-        if(exists)
-            statement.execute("UPDATE " + table + " SET locale = CLIENT WHERE uuid = \"" + player.getUuid() + "\"");
-        else
+        if(exists) {
+            PreparedStatement ps = statement.getConnection().prepareStatement("UPDATE " + table + " SET locale=? WHERE uuid=?");
+            ps.setString(1, "CLIENT");
+            ps.setString(2, player.getUuid().toString());
+            ps.executeUpdate();
+            ps.close();
+        } else
             statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", \"CLIENT\")");
         return exists;
     }
