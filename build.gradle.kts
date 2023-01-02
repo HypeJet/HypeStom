@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "xyz.citywide.citystom"
-version = "v1.0.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ publishing {
             }
             groupId = "xyz.citywide.citystom"
             artifactId = "CityStom"
-            version = "v1.0.0"
+            version = "1.4.0"
         }
     }
 }

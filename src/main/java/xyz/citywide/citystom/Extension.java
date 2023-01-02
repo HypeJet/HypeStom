@@ -49,16 +49,20 @@ public abstract class Extension extends net.minestom.server.extensions.Extension
     }
 
     public final @Nullable Toml getConfig() {
-        Toml toml = new Toml();
+        InputStream configResource = getClass().getClassLoader().getResourceAsStream("config.toml");
+        if (configResource == null) {
+            getLogger().error(Component.text("config.toml does not exists in resources folder"));
+            return null;
+        }
+
+        Toml defaults = new Toml();
+        defaults.read(configResource);
+
+        Toml toml = new Toml(defaults);
         File file = Path.of(String.valueOf(getDataDirectory()), "config.toml").toFile();
 
         if(!file.exists()) {
             try {
-                InputStream configResource = getClass().getClassLoader().getResourceAsStream("config.toml");
-                if (configResource == null) {
-                    getLogger().error(Component.text("config.toml does not exists in resources folder"));
-                    return null;
-                }
                 byte[] bytes = configResource.readAllBytes();
                 if(!getDataDirectory().toFile().exists())
                     getDataDirectory().toFile().mkdir();
@@ -66,12 +70,17 @@ public abstract class Extension extends net.minestom.server.extensions.Extension
                 f.createNewFile();
                 OutputStream stream = new FileOutputStream(f);
                 stream.write(bytes);
-                configResource.close();
                 stream.close();
                 file = f;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        try {
+            configResource.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return toml.read(file);
