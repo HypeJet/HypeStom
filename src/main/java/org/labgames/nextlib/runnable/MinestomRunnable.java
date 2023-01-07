@@ -1,4 +1,4 @@
-package xyz.citywide.citystom.runnable;
+package org.labgames.nextlib.runnable;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.timer.ExecutionType;
