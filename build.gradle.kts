@@ -4,8 +4,8 @@ plugins {
     id ("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
-group = "xyz.citywide.citystom"
-version = "1.4.0"
+group = "org.labgames.nextlib"
+version = "1.4.1"
 
 repositories {
     mavenCentral()
@@ -31,9 +31,9 @@ publishing {
                 if (shadowJar == null) from(components["java"])
                 else artifact(shadowJar)
             }
-            groupId = "xyz.citywide.citystom"
-            artifactId = "CityStom"
-            version = "1.4.0"
+            groupId = "org.labgames.nextlib"
+            artifactId = "NextLib"
+            version = "1.4.1"
         }
     }
 }
