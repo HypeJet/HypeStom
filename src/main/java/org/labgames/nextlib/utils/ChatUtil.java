@@ -1,4 +1,4 @@
-package xyz.citywide.citystom.utils;
+package org.labgames.nextlib.utils;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;

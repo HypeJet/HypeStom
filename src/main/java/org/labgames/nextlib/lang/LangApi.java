@@ -1,4 +1,4 @@
-package xyz.citywide.citystom.lang;
+package org.labgames.nextlib.lang;
 
 import lombok.SneakyThrows;
 import net.minestom.server.entity.Player;

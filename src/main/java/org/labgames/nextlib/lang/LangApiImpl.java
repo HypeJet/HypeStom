@@ -1,4 +1,4 @@
-package xyz.citywide.citystom.lang;
+package org.labgames.nextlib.lang;
 
 import com.moandjiezana.toml.Toml;
 import lombok.SneakyThrows;

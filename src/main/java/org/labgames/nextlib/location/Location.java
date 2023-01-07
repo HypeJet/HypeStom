@@ -1,4 +1,4 @@
-package xyz.citywide.citystom.location;
+package org.labgames.nextlib.location;
 
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.instance.Instance;

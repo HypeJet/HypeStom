@@ -1,6 +1,9 @@
-package xyz.citywide.citystom;
+package org.labgames.nextlib;
 
 import com.moandjiezana.toml.Toml;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
@@ -10,14 +13,32 @@ import net.minestom.server.timer.TaskSchedule;
 import net.minestom.server.world.DimensionType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.labgames.nextlib.permissions.PermissionProvider;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.time.Duration;
 
+@AllArgsConstructor
+@RequiredArgsConstructor
 public abstract class Extension extends net.minestom.server.extensions.Extension {
+
+    @Getter private @Nullable PermissionProvider permissionProvider;
+
     public final void registerCommand(@NotNull Command command) {
         MinecraftServer.getCommandManager().register(command);
+    }
+
+    public final void unregisterCommand(@NotNull Command command) {
+        MinecraftServer.getCommandManager().unregister(command);
+    }
+
+    public final void registerCommand(@NotNull org.labgames.nextlib.command.Command command) {
+        MinecraftServer.getCommandManager().register(command);
+    }
+
+    public final void unregisterCommand(@NotNull org.labgames.nextlib.command.Command command) {
+        MinecraftServer.getCommandManager().unregister(command);
     }
 
     public final void registerDimension(@NotNull DimensionType type) {

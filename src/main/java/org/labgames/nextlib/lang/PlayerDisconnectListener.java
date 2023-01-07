@@ -1,4 +1,4 @@
-package xyz.citywide.citystom.lang;
+package org.labgames.nextlib.lang;
 
 import net.minestom.server.event.player.PlayerDisconnectEvent;
 
