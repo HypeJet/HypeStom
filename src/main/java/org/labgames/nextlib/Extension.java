@@ -15,7 +15,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.labgames.nextlib.permissions.PermissionProvider;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 
@@ -80,30 +83,23 @@ public abstract class Extension extends net.minestom.server.extensions.Extension
         defaults.read(configResource);
 
         Toml toml = new Toml(defaults);
-        File file = Path.of(String.valueOf(getDataDirectory()), "config.toml").toFile();
+        Path path = Path.of(String.valueOf(getDataDirectory()), "config.toml");
 
-        if(!file.exists()) {
+        if(!Files.exists(path)) {
             try {
                 byte[] bytes = configResource.readAllBytes();
-                if(!getDataDirectory().toFile().exists())
-                    getDataDirectory().toFile().mkdir();
-                File f = new File(getDataDirectory().toFile(), "config.toml");
-                f.createNewFile();
-                OutputStream stream = new FileOutputStream(f);
+                if(!Files.exists(getDataDirectory()))
+                    Files.createDirectory(path);
+                Files.createFile(path);
+                OutputStream stream = Files.newOutputStream(path);
                 stream.write(bytes);
                 stream.close();
-                file = f;
+                configResource.close();
+                return toml.read(Files.newInputStream(path));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-
-        try {
-            configResource.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return toml.read(file);
+        return toml;
     }
 }
