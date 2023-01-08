@@ -73,7 +73,12 @@ record LangApiImpl(@NotNull Extension extension, @NotNull MongoDatabase database
     public boolean isClientLocale(@NotNull Player player) {
         Document document = coll.find(Filters.eq("title", "locales")).first();
         if(document == null) return false;
-        return document.getString(player.getUuid().toString()).equals("CLIENT");
+        String locale = document.getString(player.getUuid().toString());
+        if(locale == null) {
+            setClientLocale(player);
+            return true;
+        }
+        return locale.equals("CLIENT");
     }
 
     @SneakyThrows
