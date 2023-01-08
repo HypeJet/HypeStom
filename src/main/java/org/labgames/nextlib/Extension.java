@@ -85,21 +85,22 @@ public abstract class Extension extends net.minestom.server.extensions.Extension
         Toml toml = new Toml(defaults);
         Path path = Path.of(String.valueOf(getDataDirectory()), "config.toml");
 
-        if(!Files.exists(path)) {
-            try {
-                byte[] bytes = configResource.readAllBytes();
+        try {
+            if(!Files.exists(path)) {
                 if(!Files.exists(getDataDirectory()))
                     Files.createDirectory(path);
                 Files.createFile(path);
                 OutputStream stream = Files.newOutputStream(path);
-                stream.write(bytes);
+                stream.write(configResource.readAllBytes());
+                configResource.close();
                 stream.close();
+                return toml;
+            } else {
                 configResource.close();
                 return toml.read(Files.newInputStream(path));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return toml;
     }
 }
