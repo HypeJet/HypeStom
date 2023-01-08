@@ -1,19 +1,22 @@
 package org.labgames.nextlib.lang;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import lombok.SneakyThrows;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.player.PlayerSettingsChangeEvent;
 import net.minestom.server.extensions.Extension;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
 import java.util.Locale;
 
 public sealed interface LangApi permits LangApiImpl {
     @SneakyThrows
-    static LangApi create(@NotNull Extension extension, @NotNull Connection sqlConnection, @NotNull String table) {
-        final LangApiImpl lang = new LangApiImpl(extension, sqlConnection.createStatement(), table);
+    static LangApi create(@NotNull Extension extension, @NotNull MongoDatabase database, @NotNull String collection) {
+        MongoCollection<Document> coll = database.getCollection(collection);
+        final LangApiImpl lang = new LangApiImpl(extension, database, coll);
         PlayerSettingsListener settingsListener = new PlayerSettingsListener();
         PlayerDisconnectListener disconnectListener = new PlayerDisconnectListener();
         extension.getEventNode().addListener(PlayerSettingsChangeEvent.class, event -> settingsListener.listener(event, lang));

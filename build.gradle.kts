@@ -16,6 +16,7 @@ repositories {
 dependencies {
     compileOnly(libs.minestom)
     compileOnly(libs.lombok)
+    compileOnly(libs.mongo)
     implementation(libs.minimessage)
     implementation(libs.toml)
     annotationProcessor(libs.lombok)

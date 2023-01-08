@@ -1,17 +1,20 @@
 package org.labgames.nextlib.lang;
 
 import com.moandjiezana.toml.Toml;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import lombok.SneakyThrows;
 import net.minestom.server.entity.Player;
 import net.minestom.server.extensions.Extension;
+import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Locale;
 
-record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @NotNull String table) implements LangApi {
+record LangApiImpl(@NotNull Extension extension, @NotNull MongoDatabase database, @NotNull MongoCollection<Document> coll) implements LangApi {
     @Override
     public String getString(@NotNull Locale locale, @NotNull String name) {
         Path path = extension.getDataDirectory().resolve("lang").resolve(locale.getLanguage() + ".toml");
@@ -33,56 +36,52 @@ record LangApiImpl(@NotNull Extension extension, @NotNull Statement statement, @
     @SneakyThrows
     @Override
     public Locale getLocale(@NotNull Player player) {
-        ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE uuid = " + "\"" + player.getUuid() + "\"");
-        if(data.next()) {
-            final String locale = data.getString("locale");
-            if (locale.equals("CLIENT"))
-                return player.getLocale();
-            else
-                return Locale.forLanguageTag(locale);
-        }
-        return null;
+        Document document = coll.find(Filters.eq("title", "locales")).first();
+        if(document == null) return null;
+        if(isClientLocale(player))
+            return player.getLocale();
+        return Locale.forLanguageTag(document.getString(player.getUuid().toString()));
     }
 
     @SneakyThrows
     @Override
     public boolean setLocale(@NotNull Player player, @NotNull Locale locale) {
-        boolean exists;
-        ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE EXISTS (SELECT uuid FROM " + table + " WHERE uuid = \"" + player.getUuid() + "\")");
-        exists = data.next();
-        if(exists)
-            statement.executeUpdate("UPDATE " + table + " SET locale = '" + locale.toLanguageTag() + "' WHERE uuid = '" + player.getUuid() + "'");
-        else
-            statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", " + locale.toLanguageTag() + ")");
+        Document document = coll.find(Filters.eq("title", "locales")).first();
+        if(document == null) return false;
+        boolean exists = document.containsKey(player.getUuid().toString());
+        if(exists) {
+            String lang = document.getString(player.getUuid().toString());
+            if(locale.equals(Locale.forLanguageTag(lang)))
+                return true;
+        }
+        coll.updateOne(Filters.eq("title", "locales"), Updates.set(player.getUuid().toString(), locale.toLanguageTag()));
         return exists;
     }
 
     @SneakyThrows
     @Override
     public boolean setClientLocale(@NotNull Player player) {
-        boolean exists;
-        ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE EXISTS (SELECT uuid FROM " + table + " WHERE uuid = \"" + player.getUuid() + "\")");
-        exists = data.next();
-        if(exists) {
-            statement.executeUpdate("UPDATE " + table + " SET locale = 'CLIENT' WHERE uuid = '" + player.getUuid() + "'");
-        } else
-            statement.execute("INSERT INTO " + table + " (uuid, locale) VALUES (\"" + player.getUuid() + "\", \"CLIENT\")");
+        Document document = coll.find(Filters.eq("title", "locales")).first();
+        if(document == null) return false;
+        boolean exists = document.containsKey(player.getUuid().toString());
+        coll.updateOne(Filters.eq("title", "locales"), Updates.set(player.getUuid().toString(), "CLIENT"));
         return exists;
     }
 
     @SneakyThrows
     @Override
     public boolean isClientLocale(@NotNull Player player) {
-        ResultSet data = statement.executeQuery("SELECT * from " + table + " WHERE uuid = " + "\"" + player.getUuid() + "\"");
-        if(data.next())
-            return data.getString("locale").equals("CLIENT");
-        else
-            return false;
+        Document document = coll.find(Filters.eq("title", "locales")).first();
+        if(document == null) return false;
+        return document.getString(player.getUuid().toString()).equals("CLIENT");
     }
 
     @SneakyThrows
     @Override
     public void createTable() {
-        statement.execute("CREATE TABLE IF NOT EXISTS " + table + " (uuid VARCHAR(100), locale VARCHAR(100))");
+        if(coll.find(Filters.eq("title", "locales")).first() == null) {
+            Document document = new Document("title", "locales");
+            coll.insertOne(document);
+        }
     }
 }
