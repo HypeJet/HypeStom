@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom.location;
+package org.hypejet.hypestom.location;
 
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.instance.Instance;

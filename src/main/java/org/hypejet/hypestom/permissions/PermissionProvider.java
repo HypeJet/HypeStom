@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom.permissions;
+package org.hypejet.hypestom.permissions;
 
 import net.minestom.server.entity.Player;
 

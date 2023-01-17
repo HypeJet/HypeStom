@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom.lang;
+package org.hypejet.hypestom.lang;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;

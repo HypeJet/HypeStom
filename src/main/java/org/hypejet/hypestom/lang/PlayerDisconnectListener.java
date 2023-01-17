@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom.lang;
+package org.hypejet.hypestom.lang;
 
 import net.minestom.server.event.player.PlayerDisconnectEvent;
 

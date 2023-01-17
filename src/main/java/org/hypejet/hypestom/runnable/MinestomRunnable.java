@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom.runnable;
+package org.hypejet.hypestom.runnable;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.timer.ExecutionType;

@@ -1,12 +1,12 @@
-package org.labgames.hypejet.hypestom.command;
+package org.hypejet.hypestom.command;
 
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.ConsoleSender;
 import net.minestom.server.entity.Player;
+import org.hypejet.hypestom.permissions.PermissionProvider;
+import org.hypejet.hypestom.permissions.SubPermission;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.labgames.hypejet.hypestom.permissions.PermissionProvider;
-import org.labgames.hypejet.hypestom.permissions.SubPermission;
 
 /**
  * Normal Command witch also uses extra permission features.

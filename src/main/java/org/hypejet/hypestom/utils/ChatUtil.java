@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom.utils;
+package org.hypejet.hypestom.utils;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;

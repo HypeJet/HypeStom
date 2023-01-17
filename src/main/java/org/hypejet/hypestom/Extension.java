@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom;
+package org.hypejet.hypestom;
 
 import com.moandjiezana.toml.Toml;
 import lombok.AllArgsConstructor;
@@ -11,9 +11,9 @@ import net.minestom.server.instance.block.BlockHandler;
 import net.minestom.server.timer.ExecutionType;
 import net.minestom.server.timer.TaskSchedule;
 import net.minestom.server.world.DimensionType;
+import org.hypejet.hypestom.permissions.PermissionProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.labgames.hypejet.hypestom.permissions.PermissionProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,11 +36,11 @@ public abstract class Extension extends net.minestom.server.extensions.Extension
         MinecraftServer.getCommandManager().unregister(command);
     }
 
-    public final void registerCommand(@NotNull org.labgames.hypejet.hypestom.command.Command command) {
+    public final void registerCommand(@NotNull org.hypejet.hypestom.command.Command command) {
         MinecraftServer.getCommandManager().register(command);
     }
 
-    public final void unregisterCommand(@NotNull org.labgames.hypejet.hypestom.command.Command command) {
+    public final void unregisterCommand(@NotNull org.hypejet.hypestom.command.Command command) {
         MinecraftServer.getCommandManager().unregister(command);
     }
 

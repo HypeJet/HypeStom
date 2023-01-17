@@ -1,4 +1,4 @@
-package org.labgames.hypejet.hypestom.permissions;
+package org.hypejet.hypestom.permissions;
 
 /**
  *Subpermission of a {@link PermissionProvider PermissionProvider}
