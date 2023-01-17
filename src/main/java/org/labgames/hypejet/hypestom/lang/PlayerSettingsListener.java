@@ -1,4 +1,4 @@
-package org.labgames.nextlib.lang;
+package org.labgames.hypejet.hypestom.lang;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;

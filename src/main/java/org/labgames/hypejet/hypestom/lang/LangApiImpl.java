@@ -1,4 +1,4 @@
-package org.labgames.nextlib.lang;
+package org.labgames.hypejet.hypestom.lang;
 
 import com.moandjiezana.toml.Toml;
 import com.mongodb.client.MongoCollection;

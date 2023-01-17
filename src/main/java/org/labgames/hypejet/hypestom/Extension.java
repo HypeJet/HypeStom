@@ -1,4 +1,4 @@
-package org.labgames.nextlib;
+package org.labgames.hypejet.hypestom;
 
 import com.moandjiezana.toml.Toml;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import net.minestom.server.timer.TaskSchedule;
 import net.minestom.server.world.DimensionType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.labgames.nextlib.permissions.PermissionProvider;
+import org.labgames.hypejet.hypestom.permissions.PermissionProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,11 +36,11 @@ public abstract class Extension extends net.minestom.server.extensions.Extension
         MinecraftServer.getCommandManager().unregister(command);
     }
 
-    public final void registerCommand(@NotNull org.labgames.nextlib.command.Command command) {
+    public final void registerCommand(@NotNull org.labgames.hypejet.hypestom.command.Command command) {
         MinecraftServer.getCommandManager().register(command);
     }
 
-    public final void unregisterCommand(@NotNull org.labgames.nextlib.command.Command command) {
+    public final void unregisterCommand(@NotNull org.labgames.hypejet.hypestom.command.Command command) {
         MinecraftServer.getCommandManager().unregister(command);
     }
 

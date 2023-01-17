@@ -1,4 +1,4 @@
-package org.labgames.nextlib.permissions;
+package org.labgames.hypejet.hypestom.permissions;
 
 /**
  *Subpermission of a {@link PermissionProvider PermissionProvider}

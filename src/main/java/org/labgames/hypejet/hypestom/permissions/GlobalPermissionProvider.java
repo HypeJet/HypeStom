@@ -1,4 +1,4 @@
-package org.labgames.nextlib.permissions;
+package org.labgames.hypejet.hypestom.permissions;
 
 import net.minestom.server.entity.Player;
 

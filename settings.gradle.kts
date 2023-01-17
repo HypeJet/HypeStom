@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "CityStom"
+rootProject.name = "HypeStom"
 
 dependencyResolutionManagement {
     versionCatalogs {

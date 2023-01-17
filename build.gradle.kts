@@ -4,8 +4,8 @@ plugins {
     id ("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-group = "org.labgames.nextlib"
-version = "1.4.1"
+group = "org.hypejet.hypestom"
+version = "2.2"
 
 repositories {
     mavenCentral()
@@ -15,8 +15,8 @@ repositories {
 
 dependencies {
     compileOnly(libs.minestom)
-    compileOnly(libs.lombok)
     compileOnly(libs.mongo)
+    compileOnly(libs.lombok)
     implementation(libs.minimessage)
     implementation(libs.toml)
     annotationProcessor(libs.lombok)
@@ -28,13 +28,8 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             afterEvaluate {
-                val shadowJar = tasks.findByName("shadowJar")
-                if (shadowJar == null) from(components["java"])
-                else artifact(shadowJar)
+                artifact(tasks.findByName("shadowJar"))
             }
-            groupId = "org.labgames.nextlib"
-            artifactId = "NextLib"
-            version = "1.4.1"
         }
     }
 }
