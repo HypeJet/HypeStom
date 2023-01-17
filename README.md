@@ -1,9 +1,9 @@
-# <h3 align="center">📒 CityStom</h3>
+# <h3 align="center">📒 HypeStom</h3>
   <p align="center">
-    <a href="https://github.com/CityWideMC/CityStom/issues">Report Bug</a>
+    <a href="https://github.com/HypeJet/HypeStom/issues">Report Bug</a>
     •
-    <a href="https://github.com/CityWideMC/CityStom/pulls">Create PR</a>
+    <a href="https://github.com/HypeJet/HypeStom/pulls">Create PR</a>
   </p>
 
 # About the project
-CityStom is a library that helps creating extensions for minestom.
+HypeStom is a library that helps creating extensions for minestom.
