@@ -1,4 +1,4 @@
-package org.hypejet.hype.tablist;
+package org.hypejet.hypestom.tablist;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ public class GlobalTablist extends Tablist{
     @Override
     @SuppressWarnings("unchecked")
     public ArrayList<Component>[] createPlayerList(Player player) {
-        return new ArrayList[2];
+        return new ArrayList[]{header, footer};
     }
 
     @Getter @Setter private ArrayList<Component> header = new ArrayList<>();
@@ -35,19 +35,5 @@ public class GlobalTablist extends Tablist{
     }
     public void removeFooterLine(int line) {
         footer.remove(line);
-    }
-
-    @Override
-    public void refresh() {
-
-        Component str1 = Component.join(JoinConfiguration.separator(Component.text("\n")), header);
-        Component str2 = Component.join(JoinConfiguration.separator(Component.text("\n")), footer);
-
-        //Class<? extends Tablist> cls = this.getClass();
-
-        for(Player player : players) {
-            //str1.replaceText(TextReplacementConfig.builder().match(Pattern.compile("$.*@")).replacement().build());
-            player.sendPlayerListHeaderAndFooter(str1, str2);
-        }
     }
 }

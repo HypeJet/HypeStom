@@ -1,4 +1,4 @@
-package org.hypejet.hype.tablist;
+package org.hypejet.hypestom.tablist;
 
 import lombok.Getter;
 import net.kyori.adventure.text.Component;

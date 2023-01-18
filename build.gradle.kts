@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.hypejet.hypestom"
-version = "2.2"
+version = "1.7.0"
 
 repositories {
     mavenCentral()
