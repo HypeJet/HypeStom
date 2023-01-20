@@ -1,4 +1,6 @@
-# <h3 align="center">📒 HypeStom</h3>
+[![CodeFactor](https://www.codefactor.io/repository/github/hypejet/hypestom/badge)](https://www.codefactor.io/repository/github/hypejet/hypestom)
+
+# <h3 align="center">📒 HypeStom</h3> 
   <p align="center">
     <a href="https://github.com/HypeJet/HypeStom/issues">Report Bug</a>
     •
